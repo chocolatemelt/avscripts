@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+for f in ./*.srt; do ffmpeg -i "$f" "${f%.*}.vtt"; done

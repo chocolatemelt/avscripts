@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+for f in ./*.wav; do ffmpeg -n -i "$f" -vn -c:a alac "${f%.*}.m4a" && rm "$f"; done
