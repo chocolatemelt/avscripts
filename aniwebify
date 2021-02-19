@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-for f in ./*.mp4; do ffmpeg -i "$f" -c:v libx264 -crf 17 -preset veryslow -tune animation -c:a aac "${f%.*}.mp4"; done
+mkdir -p aniwebified
+for f in ./*.mp4; do ffmpeg -i "$f" -c:v libx264 -crf 17 -preset veryslow -tune animation -c:a aac "aniwebified/${f%.*}.mp4"; done
