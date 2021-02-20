@@ -3,6 +3,7 @@ import json
 import sys
 import subprocess
 from urllib.parse import quote
+from os import path
 
 f = sys.argv[1]
 
@@ -24,6 +25,8 @@ process = subprocess.Popen(
 output = process.stdout.readline().strip()
 output = int(round(float(output), 0))
 
+subs = path.exists(f"{f[0:-4]}.vtt")
+
 template = {
     "title": f[0:-4],
     "duration": output,
@@ -35,16 +38,20 @@ template = {
             "quality": 1080,
         }
     ],
-    "textTracks": [
+}
+
+if subs:
+    template["textTracks"] = [
         {
             "url": f"https://u.nisemo.no/{quote(f[0:-4])}.vtt.",
             "contentType": "text/vtt",
             "name": "English subtitles",
             "default": True,
         }
-    ],
-}
+    ]
 
 with open(f"{f[0:-4]}.json", "w") as outf:
     json.dump(template, outf)
+
+print(f"finished processing {f}")
 
