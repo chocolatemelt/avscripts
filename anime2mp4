@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-for f in ./*.mkv; do ffmpeg -i "$f" -c:v libx264 -crf 23 -preset veryfast -tune animation -c:a aac -filter_complex "subtitles='$f'" "${f%.*}.mp4"; done
+for f in ./*.mkv; do ffmpeg -i "$f" -c:v libx264 -crf 17 -preset veryfast -tune animation -c:a aac -filter_complex "subtitles='$f'" "${f%.*}.mp4"; done
