@@ -1,2 +1,8 @@
 #!/usr/bin/env bash
-for f in ./*.mkv; do ffmpeg -i "$f" -c:v libx264 -crf 17 -preset veryfast -tune animation -c:a aac -filter_complex "subtitles='$f'" "${f%.*}.mp4"; done
+for f in ./$1*.mkv;
+# -pix_fmt yuv420p for 8bit
+# -map 0:a:1 to pick audio track
+# subtitles='$f:si=1' to pick subtitle
+# do ffmpeg -i "$f" -movflags +faststart -pix_fmt yuv420p -crf 23 -preset veryfast -tune animation -map 0:a:1 -c:v libx264 -c:a aac -filter_complex "subtitles='$f:si=1'" "${f%.*}.mp4"
+do ffmpeg -i "$f" -movflags +faststart -pix_fmt yuv420p -crf 23 -preset veryfast -tune animation -c:v libx264 -c:a aac -filter_complex "subtitles='$f'" "${f%.*}.mp4";
+done
